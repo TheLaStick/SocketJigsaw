@@ -1,10 +1,17 @@
 package controllers;
 
+import javafx.animation.Animation;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
-import javafx.scene.image.Image;
+import javafx.scene.Scene;
 import javafx.scene.input.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
+import javafx.util.Duration;
 import objects.Figure;
 import objects.GameUtils;
 import javafx.event.ActionEvent;
@@ -15,6 +22,8 @@ import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.RowConstraints;
 
+import java.io.IOException;
+
 public class GameController {
 
     @FXML
@@ -24,7 +33,7 @@ public class GameController {
     private Button endGameButton;
 
     @FXML
-    private Label figureNameLabel;
+    private Label timeLabel;
 
     @FXML
     private GridPane figuresGridPane;
@@ -39,6 +48,7 @@ public class GameController {
     private int columnIndex;
     private int moveCount;
     private long time;
+    private Timeline timeline;
 
     @FXML
     void onClearButtonClick(ActionEvent event) {
@@ -47,15 +57,13 @@ public class GameController {
 
     @FXML
     void onFiguresGridPaneDragDropped(DragEvent event) {
-        Dragboard dragboard = event.getDragboard();
-        GridPane pane = (GridPane) event.getGestureTarget();
-
         Rectangle rectangle = (Rectangle) event.getPickResult().getIntersectedNode();
         if (canFigureFitGridPane(figuresGridPane, currentFigure,
                 GridPane.getRowIndex(rectangle) - rowIndex, GridPane.getColumnIndex(rectangle) - columnIndex)) {
             setRectanglesFillByFigureColor(fieldRectangles, currentFigure,
                     GridPane.getRowIndex(rectangle) - rowIndex, GridPane.getColumnIndex(rectangle) - columnIndex);
             updateNewFigureGridPane();
+            ++moveCount;
         }
     }
 
@@ -80,8 +88,29 @@ public class GameController {
 
 
     @FXML
-    void onendGameButtonClick(ActionEvent event) {
-        updateNewFigureGridPane();
+    void oneEndGameButtonClick(ActionEvent event) throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(GameApplication.class.getResource("result-view.fxml"));
+        Scene scene = new Scene(fxmlLoader.load(), GameUtils.RESULT_WINDOW_WIDTH, GameUtils.RESULT_WINDOW_HEIGHT);
+        ResultsController controller = fxmlLoader.getController();
+        controller.showGameInfo(moveCount, time);
+
+        Stage stage = new Stage();
+
+        stage.setTitle("New Person");
+        stage.setScene(scene);
+        stage.initModality(Modality.APPLICATION_MODAL);
+        stage.showAndWait();
+
+        if (controller.isGameNew()) {
+            updateNewFigureGridPane();
+            clearRectangles(fieldRectangles);
+            initializeTimeline();
+            moveCount = 0;
+        } else {
+            Stage currentStage = (Stage) endGameButton.getScene().getWindow();
+            currentStage.close();
+        }
+
     }
 
     @FXML
@@ -106,7 +135,21 @@ public class GameController {
         rowIndex = 0;
         columnIndex = 0;
         moveCount = 0;
+
+        initializeTimeline();
+    }
+
+    private void initializeTimeline() {
         time = 0;
+        timeLabel.setText(String.valueOf(time));
+        this.timeline = new Timeline(new KeyFrame(Duration.seconds(1), ev -> {
+            ++time;
+            timeLabel.setText(String.valueOf(time));
+        }));
+        timeline.setCycleCount(1);
+        timeline.setCycleCount(Animation.INDEFINITE);
+
+        timeline.play();
     }
 
     private void clearRectangles(Rectangle[][] rectangles) {
@@ -122,7 +165,6 @@ public class GameController {
         Figure generatedFigure = Figure.generateRandomFigure();
         setRectanglesFillByFigureColor(newFigureRectangles, generatedFigure, 0, 0);
         this.currentFigure = generatedFigure;
-        figureNameLabel.setText(generatedFigure.getName());
     }
 
     private Rectangle[][] initializeRectangles(int width, int height, int cellLength, Color color) {

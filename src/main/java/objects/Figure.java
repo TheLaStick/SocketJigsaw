@@ -1,7 +1,5 @@
 package objects;
 
-import java.util.Random;
-
 public class Figure {
     private static int FIGURE_TYPES_COUNT = 10;
 
@@ -27,28 +25,28 @@ public class Figure {
                 coordinates[0][1] = true;
                 coordinates[0][2] = true;
                 coordinates[1][0] = true;
-                rotateFigure(figureType, rotation);
+                rotateFigureByAngle(rotation);
             }
             case HORSE_MOVE_LEFT -> {
                 coordinates[0][0] = true;
                 coordinates[1][0] = true;
                 coordinates[1][1] = true;
                 coordinates[1][2] = true;
-                rotateFigure(figureType, rotation);
+                rotateFigureByAngle(rotation);
             }
             case ZIG_ZAG_RIGHT -> {
                 coordinates[0][1] = true;
                 coordinates[0][2] = true;
                 coordinates[1][0] = true;
                 coordinates[1][1] = true;
-                rotateFigure(figureType, rotation);
+                rotateFigureByAngle(rotation);
             }
             case ZIG_ZAG_LEFT -> {
                 coordinates[0][0] = true;
                 coordinates[0][1] = true;
                 coordinates[1][1] = true;
                 coordinates[1][2] = true;
-                rotateFigure(figureType, rotation);
+                rotateFigureByAngle(rotation);
             }
             case BIG_L -> {
                 coordinates[0][0] = true;
@@ -56,7 +54,7 @@ public class Figure {
                 coordinates[0][2] = true;
                 coordinates[1][2] = true;
                 coordinates[2][2] = true;
-                rotateFigure(figureType, rotation);
+                rotateFigureByAngle(rotation);
             }
             case BIG_T -> {
                 coordinates[0][0] = true;
@@ -64,13 +62,13 @@ public class Figure {
                 coordinates[2][0] = true;
                 coordinates[1][1] = true;
                 coordinates[1][2] = true;
-                rotateFigure(figureType, rotation);
+                rotateFigureByAngle(rotation);
             }
             case STICK -> {
                 coordinates[1][0] = true;
                 coordinates[1][1] = true;
                 coordinates[1][2] = true;
-                rotateFigure(figureType, rotation);
+                rotateFigureByAngle(rotation);
             }
             case DOT -> {
                 coordinates[1][1] = true;
@@ -79,19 +77,19 @@ public class Figure {
                 coordinates[0][0] = true;
                 coordinates[0][1] = true;
                 coordinates[1][1] = true;
-                rotateFigure(figureType, rotation);
+                rotateFigureByAngle(rotation);
             }
             case LITTLE_T -> {
                 coordinates[0][0] = true;
                 coordinates[1][0] = true;
                 coordinates[2][0] = true;
                 coordinates[1][1] = true;
-                rotateFigure(figureType, rotation);
+                rotateFigureByAngle(rotation);
             }
         }
     }
 
-    private boolean[][] reverseMatrix90(boolean[][] matrix) {
+    private boolean[][] rotateFigure(boolean[][] matrix) {
         boolean[][] rotatedMatrix = new boolean[matrix.length][matrix.length];
         for (int i = 0; i < matrix.length; i++) {
             for (int j = 0; j < matrix.length; j++) {
@@ -102,9 +100,9 @@ public class Figure {
         return rotatedMatrix;
     }
 
-    private void rotateFigure(GameUtils.FigureType type, int rotation) {
-        for (int i = 0; i < rotation; i++) {
-            coordinates = reverseMatrix90(coordinates);
+    private void rotateFigureByAngle(int angle) {
+        for (int i = 0; i < angle; i++) {
+            coordinates = rotateFigure(coordinates);
         }
     }
 
