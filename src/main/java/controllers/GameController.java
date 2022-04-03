@@ -1,7 +1,7 @@
 package controllers;
 
-import javafx.collections.ObservableList;
 import javafx.scene.Node;
+import javafx.scene.image.Image;
 import javafx.scene.input.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
@@ -15,9 +15,10 @@ import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.RowConstraints;
 
-import java.util.Timer;
-
 public class GameController {
+
+    @FXML
+    private Button clearButton;
 
     @FXML
     private Button endGameButton;
@@ -34,8 +35,15 @@ public class GameController {
     private Figure currentFigure;
     private Rectangle[][] fieldRectangles;
     private Rectangle[][] newFigureRectangles;
+    private int rowIndex;
+    private int columnIndex;
     private int moveCount;
     private long time;
+
+    @FXML
+    void onClearButtonClick(ActionEvent event) {
+        clearRectangles(fieldRectangles);
+    }
 
     @FXML
     void onFiguresGridPaneDragDropped(DragEvent event) {
@@ -44,9 +52,9 @@ public class GameController {
 
         Rectangle rectangle = (Rectangle) event.getPickResult().getIntersectedNode();
         if (canFigureFitGridPane(figuresGridPane, currentFigure,
-                pane.getRowIndex(rectangle), pane.getColumnIndex(rectangle))) {
+                GridPane.getRowIndex(rectangle) - rowIndex, GridPane.getColumnIndex(rectangle) - columnIndex)) {
             setRectanglesFillByFigureColor(fieldRectangles, currentFigure,
-                    pane.getRowIndex(rectangle), pane.getColumnIndex(rectangle));
+                    GridPane.getRowIndex(rectangle) - rowIndex, GridPane.getColumnIndex(rectangle) - columnIndex);
             updateNewFigureGridPane();
         }
     }
@@ -56,10 +64,20 @@ public class GameController {
         Dragboard dragboard = newFigureGridPane.startDragAndDrop(TransferMode.ANY);
         ClipboardContent content = new ClipboardContent();
 
-        content.putString("");
-        dragboard.setContent(content);
-        event.consume();
+        Node node = event.getPickResult().getIntersectedNode();
+        if (node instanceof Rectangle) {
+            Rectangle rectangle = (Rectangle) node;
+            this.rowIndex = GridPane.getRowIndex(rectangle);
+            this.columnIndex = GridPane.getColumnIndex(rectangle);
+
+            // это костыль я знаю, но без этого не работает
+            content.putString("");
+
+            dragboard.setContent(content);
+            event.consume();
+        }
     }
+
 
     @FXML
     void onendGameButtonClick(ActionEvent event) {
@@ -85,14 +103,22 @@ public class GameController {
                 GameUtils.CELL_LENGTH, GameUtils.CELL_GAP_LENGTH, newFigureRectangles);
 
         updateNewFigureGridPane();
+        rowIndex = 0;
+        columnIndex = 0;
+        moveCount = 0;
+        time = 0;
+    }
+
+    private void clearRectangles(Rectangle[][] rectangles) {
+        for (int i = 0; i < rectangles.length; ++i) {
+            for (int j = 0; j < rectangles[0].length; ++j) {
+                rectangles[i][j].setFill(GameUtils.EMPTY_CELL_COLOR);
+            }
+        }
     }
 
     private void updateNewFigureGridPane() {
-        for (int i = 0; i < newFigureRectangles.length; ++i) {
-            for (int j = 0; j < newFigureRectangles[0].length; ++j) {
-                newFigureRectangles[i][j].setFill(GameUtils.EMPTY_CELL_COLOR);
-            }
-        }
+        clearRectangles(newFigureRectangles);
         Figure generatedFigure = Figure.generateRandomFigure();
         setRectanglesFillByFigureColor(newFigureRectangles, generatedFigure, 0, 0);
         this.currentFigure = generatedFigure;
@@ -140,7 +166,9 @@ public class GameController {
             for (int j = 0; j < coordinates[0].length; ++j) {
                 // Если мы вышли за пределы поля
                 if (i + x >= fieldRectangles.length ||
-                        j + y >= fieldRectangles[0].length) {
+                        i + x < 0 ||
+                        j + y >= fieldRectangles[0].length ||
+                        j + y < 0) {
                     // то проверяем, есть ли за этим полем части передвигаемой фигуры
                     if (coordinates[i][j]) {
                         return false;

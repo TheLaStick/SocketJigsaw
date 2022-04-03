@@ -14,12 +14,13 @@
             <ColumnConstraints minWidth="10.0" prefWidth="100.0" />
          </columnConstraints>
       </GridPane>
-      <Button fx:id="endGameButton" layoutX="636.0" layoutY="21.0" mnemonicParsing="false" onAction="#onendGameButtonClick" prefHeight="67.0" prefWidth="247.0" text="Escape+Consede" />
+      <Button fx:id="endGameButton" layoutX="636.0" layoutY="426.0" mnemonicParsing="false" onAction="#onendGameButtonClick" prefHeight="67.0" prefWidth="247.0" text="Escape+Consede" />
       <GridPane fx:id="newFigureGridPane" gridLinesVisible="true" layoutX="643.0" layoutY="221.0" onDragDetected="#onNewFigureGridPaneDragDetected" prefHeight="180.0" prefWidth="180.0" style="-fx-background-color: cecece;">
         <rowConstraints>
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
       </GridPane>
       <Label fx:id="figureNameLabel" layoutX="691.0" layoutY="180.0" />
+      <Button fx:id="clearButton" layoutX="636.0" layoutY="98.0" mnemonicParsing="false" onAction="#onClearButtonClick" prefHeight="67.0" prefWidth="247.0" text="Clear" />
    </children>
 </AnchorPane>

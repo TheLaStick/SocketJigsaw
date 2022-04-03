@@ -16,6 +16,14 @@ public class GameUtils {
     public static final Random RANDOM = new Random();
     public static final Color FIGURE_COLOR = Color.BLUE;
     public static final Color EMPTY_CELL_COLOR = Color.DIMGRAY;
+    public static final String POOTIS_IMAGE_URL = "http://pm1.narvii.com/7500/2d4bfec1f60c1a76033488d0f10df5ae17c1da8fr1-1024-768v2_00.jpg";
+    public static final String BEBRA_IMAGE_URL = "https://i.imgur.com/uBAcFV1.png";
+    //public static final String POOTIS_IMAGE_URL = "http://pm1.narvii.com/7500/2d4bfec1f60c1a76033488d0f10df5ae17c1da8fr1-1024-768v2_00.jpg";
+//    public static final String POOTIS_IMAGE_URL = "http://pm1.narvii.com/7500/2d4bfec1f60c1a76033488d0f10df5ae17c1da8fr1-1024-768v2_00.jpg";
+//    public static final String POOTIS_IMAGE_URL = "http://pm1.narvii.com/7500/2d4bfec1f60c1a76033488d0f10df5ae17c1da8fr1-1024-768v2_00.jpg";
+//    public static final String POOTIS_IMAGE_URL = "http://pm1.narvii.com/7500/2d4bfec1f60c1a76033488d0f10df5ae17c1da8fr1-1024-768v2_00.jpg";
+//    public static final String POOTIS_IMAGE_URL = "http://pm1.narvii.com/7500/2d4bfec1f60c1a76033488d0f10df5ae17c1da8fr1-1024-768v2_00.jpg";
+
 
     enum FigureType {
         HORSE_MOVE_RIGHT,
