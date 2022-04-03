@@ -1,4 +1,4 @@
-package controllers;
+package thelastick.jigsaw.controllers;
 
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
@@ -12,8 +12,9 @@ import javafx.scene.shape.Rectangle;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.Duration;
-import objects.Figure;
-import objects.GameUtils;
+import thelastick.jigsaw.GameApplication;
+import thelastick.jigsaw.objects.Figure;
+import thelastick.jigsaw.objects.GameUtils;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -80,7 +81,7 @@ public class GameController {
     @FXML
     void oneEndGameButtonClick(ActionEvent event) throws IOException {
         timeline.stop();
-        FXMLLoader fxmlLoader = new FXMLLoader(GameApplication.class.getResource("result-view.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(GameApplication.class.getResource("controllers/result-view.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), GameUtils.RESULT_WINDOW_WIDTH, GameUtils.RESULT_WINDOW_HEIGHT);
         ResultsController controller = fxmlLoader.getController();
 

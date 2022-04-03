@@ -1,4 +1,4 @@
-package objects;
+package thelastick.jigsaw.objects;
 
 import javafx.scene.paint.Color;
 

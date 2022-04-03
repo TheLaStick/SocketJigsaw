@@ -1,4 +1,4 @@
-package objects;
+package thelastick.jigsaw.objects;
 
 import java.util.Arrays;
 import java.util.Objects;
