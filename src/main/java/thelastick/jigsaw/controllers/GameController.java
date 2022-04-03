@@ -49,13 +49,15 @@ public class GameController {
 
     @FXML
     void onFiguresGridPaneDragDropped(DragEvent event) {
-        Rectangle rectangle = (Rectangle) event.getPickResult().getIntersectedNode();
-        if (canFigureFitGridPane(currentFigure,
-                GridPane.getRowIndex(rectangle) - rowIndex, GridPane.getColumnIndex(rectangle) - columnIndex)) {
-            setRectanglesFillByFigureColor(fieldRectangles, currentFigure,
-                    GridPane.getRowIndex(rectangle) - rowIndex, GridPane.getColumnIndex(rectangle) - columnIndex);
-            updateNewFigureGridPane();
-            ++moveCount;
+        Node node = event.getPickResult().getIntersectedNode();
+        if (node instanceof Rectangle rectangle) {
+            if (canFigureFitGridPane(currentFigure,
+                    GridPane.getRowIndex(rectangle) - rowIndex, GridPane.getColumnIndex(rectangle) - columnIndex)) {
+                setRectanglesFillByFigureColor(fieldRectangles, currentFigure,
+                        GridPane.getRowIndex(rectangle) - rowIndex, GridPane.getColumnIndex(rectangle) - columnIndex);
+                updateNewFigureGridPane();
+                ++moveCount;
+            }
         }
     }
 
@@ -97,7 +99,7 @@ public class GameController {
 
         if (controller.isGameNew()) {
             updateNewFigureGridPane();
-            clearRectangles(fieldRectangles);
+            clearRectanglesTable(fieldRectangles);
             initializeTimeline();
             moveCount = 0;
         } else {
@@ -151,9 +153,10 @@ public class GameController {
 
     /**
      * Меняет цвет всех прямоугольников на цвет "игровой пустоты
+     *
      * @param rectangles Таблица прямоугольников
      */
-    private void clearRectangles(Rectangle[][] rectangles) {
+    static public void clearRectanglesTable(Rectangle[][] rectangles) {
         for (int i = 0; i < rectangles.length; ++i) {
             for (int j = 0; j < rectangles[0].length; ++j) {
                 rectangles[i][j].setFill(GameUtils.EMPTY_CELL_COLOR);
@@ -165,7 +168,7 @@ public class GameController {
      * Обновляет поле создания новых фигур (оно 3 на 3)
      */
     private void updateNewFigureGridPane() {
-        clearRectangles(newFigureRectangles);
+        clearRectanglesTable(newFigureRectangles);
         Figure generatedFigure = Figure.generateRandomFigure();
         setRectanglesFillByFigureColor(newFigureRectangles, generatedFigure, 0, 0);
         this.currentFigure = generatedFigure;
@@ -173,10 +176,11 @@ public class GameController {
 
     /**
      * Инициализирует таблицу прямоугольников
-     * @param width Длина таблицы
-     * @param height Ширина таблицы
+     *
+     * @param width      Длина таблицы
+     * @param height     Ширина таблицы
      * @param cellLength Длина клетки
-     * @param color Цвет клеток
+     * @param color      Цвет клеток
      * @return Таблицу прямоугольников
      */
     private Rectangle[][] initializeRectangles(int width, int height, int cellLength, Color color) {
@@ -192,12 +196,13 @@ public class GameController {
 
     /**
      * Инициализирует GridPane
-     * @param pane Текущая GridPane
-     * @param width Ширина GridPane
-     * @param height Высота GridPane
-     * @param cellLength Размер клетки
+     *
+     * @param pane          Текущая GridPane
+     * @param width         Ширина GridPane
+     * @param height        Высота GridPane
+     * @param cellLength    Размер клетки
      * @param cellGapLength Размер границы
-     * @param rectangles Таблица клеток
+     * @param rectangles    Таблица клеток
      */
     private void initializeGridPane(GridPane pane, int width, int height,
                                     int cellLength, int cellGapLength,
@@ -225,9 +230,10 @@ public class GameController {
 
     /**
      * Проверяет, может ли фигура вместиться в поле 9 на 9
+     *
      * @param figure Текущая фигура
-     * @param x Координата по горизонтали
-     * @param y Координата по вертикали
+     * @param x      Координата по горизонтали
+     * @param y      Координата по вертикали
      * @return true, если может, false - иначе
      */
     private boolean canFigureFitGridPane(Figure figure, int x, int y) {
@@ -258,10 +264,11 @@ public class GameController {
 
     /**
      * Помещает фигуру в поле и таблицу клеток по заданной координате.
+     *
      * @param rectangles Таблица клеток
-     * @param figure Фигура
-     * @param x Координата по горизонтали
-     * @param y Координата по вертикали
+     * @param figure     Фигура
+     * @param x          Координата по горизонтали
+     * @param y          Координата по вертикали
      */
     private void setRectanglesFillByFigureColor(Rectangle[][] rectangles, Figure figure, int x, int y) {
         boolean[][] coordinates = figure.getCoordinates();
