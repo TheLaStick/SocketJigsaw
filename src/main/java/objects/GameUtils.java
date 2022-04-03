@@ -33,6 +33,11 @@ public class GameUtils {
         LITTLE_L,
         LITTLE_T;
 
+        /**
+         * Преобразует int в FigureType
+         * @param type
+         * @return
+         */
         static public FigureType generate(int type) {
             switch (type) {
                 case 0 -> {

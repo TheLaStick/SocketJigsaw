@@ -48,6 +48,11 @@ public class ResultsController {
         currentStage.close();
     }
 
+    /**
+     * Отображает количество ходов и время игры в этом окне.
+     * @param moveCount
+     * @param time
+     */
     public void showGameInfo(int moveCount, long time) {
         resultScoreLabel.setText(String.valueOf(moveCount));
         resultTimeLabel.setText(String.valueOf(time));
