@@ -1,12 +1,21 @@
 package objects;
 
+import javafx.scene.paint.Color;
+
+import java.util.Random;
+
 public class GameUtils {
-    public static final int FIGURES_GRID_PANE_WIDTH = 3;
-    public static final int FIGURES_GRID_PANE_HEIGHT = 3;
-    public static final int GAME_FIELD_WIDTH = 9;
+    public static final int NEW_FIGURES_GRID_PANE_WIDTH = 3;
+    public static final int NEW_FIGURES_GRID_PANE_HEIGHT = 3;
+    public static final int FIGURES_GRID_PANE_WIDTH = 9;
     public static final int GAME_FIELD_HEIGHT = 9;
 
-    public static final int LOL = 0;
+    public static final int CELL_LENGTH = 60;
+    public static final int CELL_GAP_LENGTH = 2;
+
+    public static final Random RANDOM = new Random();
+    public static final Color FIGURE_COLOR = Color.BLUE;
+    public static final Color EMPTY_CELL_COLOR = Color.DIMGRAY;
 
     enum FigureType {
         HORSE_MOVE_RIGHT,
