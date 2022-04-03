@@ -25,10 +25,6 @@ import javafx.scene.layout.RowConstraints;
 import java.io.IOException;
 
 public class GameController {
-
-    @FXML
-    private Button clearButton;
-
     @FXML
     private Button endGameButton;
 
@@ -49,11 +45,6 @@ public class GameController {
     private int moveCount;
     private long time;
     private Timeline timeline;
-
-    @FXML
-    void onClearButtonClick(ActionEvent event) {
-        clearRectangles(fieldRectangles);
-    }
 
     @FXML
     void onFiguresGridPaneDragDropped(DragEvent event) {
@@ -89,9 +80,11 @@ public class GameController {
 
     @FXML
     void oneEndGameButtonClick(ActionEvent event) throws IOException {
+        timeline.stop();
         FXMLLoader fxmlLoader = new FXMLLoader(GameApplication.class.getResource("result-view.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), GameUtils.RESULT_WINDOW_WIDTH, GameUtils.RESULT_WINDOW_HEIGHT);
         ResultsController controller = fxmlLoader.getController();
+
         controller.showGameInfo(moveCount, time);
 
         Stage stage = new Stage();
@@ -100,6 +93,7 @@ public class GameController {
         stage.setScene(scene);
         stage.initModality(Modality.APPLICATION_MODAL);
         stage.showAndWait();
+
 
         if (controller.isGameNew()) {
             updateNewFigureGridPane();
