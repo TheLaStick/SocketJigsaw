@@ -1,5 +1,6 @@
-package thelastick.jigsaw.controllers;
+package thelastick.UI.controllers;
 
+import thelastick.UI.GameApplication;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -12,9 +13,8 @@ import javafx.scene.shape.Rectangle;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.Duration;
-import thelastick.jigsaw.GameApplication;
-import thelastick.jigsaw.objects.Figure;
-import thelastick.jigsaw.objects.GameUtils;
+import thelastick.jigsaw.Figure;
+import thelastick.jigsaw.GameUtils;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -152,7 +152,7 @@ public class GameController {
     }
 
     /**
-     * Меняет цвет всех прямоугольников на цвет "игровой пустоты
+     * Меняет цвет всех прямоугольников на цвет "игровой пустоты"
      *
      * @param rectangles Таблица прямоугольников
      */

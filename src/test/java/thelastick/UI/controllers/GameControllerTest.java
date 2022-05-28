@@ -1,8 +1,8 @@
-package thelastick.jigsaw.controllers;
+package thelastick.UI.controllers;
 
 import javafx.scene.shape.Rectangle;
 import org.junit.jupiter.api.Test;
-import thelastick.jigsaw.objects.GameUtils;
+import thelastick.jigsaw.GameUtils;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class GameControllerTest {

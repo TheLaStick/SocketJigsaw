@@ -1,5 +1,7 @@
-package thelastick.jigsaw.objects;
+package thelastick.UI.objects;
 
+import thelastick.jigsaw.Figure;
+import thelastick.jigsaw.GameUtils;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;

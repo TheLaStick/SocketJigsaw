@@ -1,8 +1,8 @@
-module com.example.dorzhiev_donir_208_hw5 {
+module Jigsaw {
     requires javafx.controls;
     requires javafx.fxml;
 
-    opens thelastick.jigsaw.controllers to javafx.fxml;
-    exports thelastick.jigsaw.controllers;
-    exports thelastick.jigsaw;
+    opens thelastick.UI.controllers to javafx.fxml;
+    exports thelastick.UI.controllers;
+    exports thelastick.UI;
 }
