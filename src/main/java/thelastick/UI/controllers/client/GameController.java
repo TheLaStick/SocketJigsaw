@@ -1,4 +1,4 @@
-package thelastick.UI.controllers;
+package thelastick.UI.controllers.client;
 
 import thelastick.UI.GameApplication;
 import javafx.animation.Animation;

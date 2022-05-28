@@ -2,6 +2,7 @@ package thelastick.UI.controllers;
 
 import javafx.scene.shape.Rectangle;
 import org.junit.jupiter.api.Test;
+import thelastick.UI.controllers.client.GameController;
 import thelastick.jigsaw.GameUtils;
 import static org.junit.jupiter.api.Assertions.*;
 

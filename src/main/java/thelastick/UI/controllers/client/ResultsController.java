@@ -1,4 +1,4 @@
-package thelastick.UI.controllers;
+package thelastick.UI.controllers.client;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
